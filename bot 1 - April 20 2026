@@ -22,7 +22,7 @@ def lift_up():
 		k.set_servo_position(1, i)
 		k.msleep(250)
 		i = i - 500
-    stop()
+	stop()
     
 def lift_down():
 	print("test")
@@ -35,20 +35,20 @@ def lift_down():
 		k.set_servo_position(3, i)
 		k.msleep(250)
 		i = i - 500
-    stop()
+	stop()
 
 def movementing(m1, m2, time):
 	k.motor(2, m1)
 	k.motor(3, m2)
 	k.msleep(time)
-    stop()
+	stop()
 
 def forward(power,duration):
     k.motor(2,power)
     k.motor(3,-power)
     k.msleep(duration)
     stop()
-    
+
 def right():
     k.motor(1, 100)
     k.motor(2, 100)
@@ -61,11 +61,10 @@ def left():
     k.msleep(1500)
     stop()
 
-
 def pom_push(a):#if a = 600, push, else, return
 	k.set_servo_position(2, a)
 	k.msleep(200)
-    stop()
+	stop()
     
 def drop():
     k.set_servo_position(1, 2047)
@@ -76,7 +75,7 @@ def reset():
 	k.set_servo_position(2, 2047)
 	k.set_servo_position(3, 2040)
 	k.set_servo_position(1, 5)
-    stop()
+	stop()
 
 def stop():
 	k.motor(2, 0)

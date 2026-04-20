@@ -3,8 +3,6 @@ import os, sys
 sys.path.append("/usr/lib")
 import _kipr as k
 
-k.enable_servos()
-
 #All are from looking from back of bot
 
 #motor port 2 is left motor
@@ -14,46 +12,67 @@ k.enable_servos()
 
 #left grabber is servo port 1, 0 is bottom position, 2047 is top position
 #right grabber is servo port 0, 0 is top position, 2047 is bottom position
+#a time in seconds
+def sleep(a):
+	print("slept")
+	k.disable_servos()
+	k.motor(2, 0)
+	k.motor(3, 0)
+	k.msleep(200)
+	k.msleep(a * 1000)
 
 ### WHEEL MOVEMENT ###
-def forward(speed, msleep):
-	k.motor(2, speed)
-	k.motor(3, speed)
+def moveFB(power, msleep):
+	print("movefb")
+	k.motor(2, power)
+	k.motor(3, -1 * power)
 	k.msleep(msleep)
+	sleep(1)
     
-def backwards(speed, msleep):
-	k.motor(2, -speed)
-	k.motor(3, -speed)
-	k.msleep(msleep)
-    
-def right(speed, msleep):
-	k.motor(2, speed)
+def right(power, msleep):
+	print("right")
+	k.motor(2, power)
 	k.motor(3,  0)
 	k.msleep(msleep)
+	sleep(1)
     
-def left(speed, msleep):
+def left(power, msleep):
+	print("left")
 	k.motor(2, 0)
-	k.motor(3, speed)
+	k.motor(3, -1 * power)
 	k.msleep(msleep)
+	sleep(1)
 
 ### POM SWEEPER ###
 def pom_sweep():
-	k.set_servo_position(2, 980)
+	print("poms swept")
+	k.enable_serovs()
+	k.set_servo_position(2, 650)
 	k.msleep(1000)
-	k.set_servo_position(2, 2047)
+	k.msleep(250)
+	k.set_servo_position(2, 0)
 	k.msleep(1000)
+	sleep(1)
     
-### BOX COLLECTOR ###
-def grab_box():
-	k.set_servo_position(0, 2047)
-	k.set_servo_position(1, 0)
+### BOX COLLECTOR ### a deterining up or down (pos / neg)
+def grab_box(a):
+	print("box up/down")
+	k.enable_servos()
+	if(a > 0):
+		k.set_servo_position(0, 2040)
+		k.msleep(1000)
+		k.msleep(1000)
+	else:
+		k.set_servo_position(1, 0)
+		k.msleep(1000)
+		k.msleep(250)
+	sleep(1)
     
-def drop_box():
-	k.set_servo_position(0, 0)
-	k.set_servo_position(1, 2047)
     
 ### MAIN CODE ###
 def main():
-	
+	grab_box(1)
+	grab_box(-1)
     
 main()
+
